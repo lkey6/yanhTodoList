@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AzurePJ")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40787fbbf19c01b0f1d08c4f659f91ab15185c1f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d4dd65806bddda9578887732d237edcd7437607")]
 [assembly: System.Reflection.AssemblyProductAttribute("AzurePJ")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AzurePJ")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
