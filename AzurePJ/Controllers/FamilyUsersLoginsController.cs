@@ -24,7 +24,6 @@ namespace AzurePJ.Controllers
         // GET: FamilyUsersLogins
         public IActionResult Index()
         {
-            ViewData["Message1"] = "1";
             return View();
         }
 
@@ -36,21 +35,17 @@ namespace AzurePJ.Controllers
             //{
             //    return View(user);
             //}
-            ViewData["Message2"] = "2";
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Email))
             {
                 return NotFound();
             }
-            ViewData["Message3"] = "3";
             var users = await _context.FamilyUsersLogins.FirstOrDefaultAsync(x => x.UserName == user.UserName && x.Email == user.Email);
             //Users存在しません
-            ViewData["Message4"] = "4";
             if (users == null)
             {
                 return View("Error1");
             }
-            ViewData["Message5"] = "5";
-            return Redirect("https://www.google.com/");
+            return Redirect("Edit");
         }
 
         // GET: FamilyUsersLogins/Details/5
