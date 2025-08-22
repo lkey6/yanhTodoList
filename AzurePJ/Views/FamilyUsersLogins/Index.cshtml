@@ -1,0 +1,30 @@
+﻿@model AzurePJ.Models.FamilyUsersLogin
+
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="center-wrapper">
+    <div class="form-box">
+        <h2 class="form-title">登録</h2>
+        <form asp-action="Index" asp-controller="FamilyUsersLogins" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="UserName" class="form-label">Username</label>
+                <input asp-for="UserName" name="UserName" class="form-input" placeholder="you@example.com" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" name="Email" class="form-input" type="email" placeholder="••••••••" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <button class="cool-btn" type="submit">Sign in</button>
+            <div>
+                <label>初めてご利用ですか？</label><a asp-controller="Users" asp-action="Register">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
