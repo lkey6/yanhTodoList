@@ -31,22 +31,22 @@ namespace AzurePJ.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(FamilyUsersLogin user)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(user);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(user);
+            //}
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Email))
             {
                 return NotFound();
             }
-            var users = await _context.Users.FirstOrDefaultAsync(x => x.Email == user.UserName && x.Email == user.Email);
+            var users = await _context.FamilyUsersLogins.FirstOrDefaultAsync(x => x.UserName == user.UserName && x.Email == user.Email);
 
             //Users存在しません
             if (users == null)
             {
                 return View("Error1");
             }
-            return RedirectToAction("Index", "ToDoList");
+            return RedirectToAction("Edit");
         }
 
         // GET: FamilyUsersLogins/Details/5
@@ -90,19 +90,10 @@ namespace AzurePJ.Controllers
         }
 
         // GET: FamilyUsersLogins/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var familyUsersLogin = await _context.FamilyUsersLogins.FindAsync(id);
-            if (familyUsersLogin == null)
-            {
-                return NotFound();
-            }
-            return View(familyUsersLogin);
+            return View();
         }
 
         // POST: FamilyUsersLogins/Edit/5
