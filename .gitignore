@@ -1,0 +1,16 @@
+# Visual Studio / 
+bin/
+obj/
+*.user
+*.suo
+*.vs/
+.vscode/
+*.log
+
+*.Publish.xml
+*.dll
+*.exe
+
+# NuGet
+*.nupkg
+packages/
