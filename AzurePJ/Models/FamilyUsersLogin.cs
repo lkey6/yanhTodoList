@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AzurePJ.Models;
 
@@ -7,13 +8,15 @@ public partial class FamilyUsersLogin
 {
     public int UserId { get; set; }
 
+    [Required(ErrorMessage = "名前を入力してください")]
     public string UserName { get; set; } = null!;
 
     public string Relationship { get; set; } = null!;
 
-    public string? Email { get; set; }
+    [Required(ErrorMessage = "Passwordを入力してください")]
+    public string Password { get; set; } = null!;
 
-    public string? Phone { get; set; }
+    public string Phone { get; set; } = null!;
 
     public bool IsActive { get; set; }
 

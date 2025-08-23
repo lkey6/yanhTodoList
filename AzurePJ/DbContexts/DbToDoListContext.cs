@@ -37,7 +37,7 @@ public partial class DbToDoListContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.Password).HasMaxLength(100);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.LastLogin).HasColumnType("datetime");
             entity.Property(e => e.Phone).HasMaxLength(20);

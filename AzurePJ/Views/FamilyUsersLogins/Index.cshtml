@@ -6,22 +6,23 @@
 
 <div class="center-wrapper">
     <div class="form-box">
-        <h2 class="form-title">登録</h2>
+        @* <img src="~/img/catm.jpeg" class="cat-bg" alt="Family Cat" /> *@
+        <h2 class="form-title">おかえり～💖</h2>
         <form asp-action="Index" asp-controller="FamilyUsersLogins" method="post">
             @Html.AntiForgeryToken()
             <div class="form-group">
-                <label asp-for="UserName" class="form-label">Username</label>
-                <input asp-for="UserName" name="UserName" class="form-input" placeholder="you@example.com" />
+                <label asp-for="UserName" class="form-label">名前🐈</label>
+                <input asp-for="UserName" name="UserName" class="form-input" placeholder="" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Email" class="form-label">Email</label>
-                <input asp-for="Email" name="Email" class="form-input" type="email" placeholder="your@email.com" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="Password" class="form-label">パスワード🐾</label>
+                <input asp-for="Password" name="Password" class="form-input" type="password" placeholder="" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <button class="cool-btn" type="submit" id="loginBtn">Sign in</button>
+            <button class="cool-btn" type="submit" id="loginBtn">おうちに入る🏡</button>
         </form>
     </div>
 </div>

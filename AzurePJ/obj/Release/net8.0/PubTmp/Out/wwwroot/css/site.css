@@ -1,4 +1,4 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
@@ -18,25 +18,35 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .cool-btn {
-    margin-top: 15px;
-    position: relative;
-    display: inline-block;
-    padding: 12px 28px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-    background: linear-gradient(135deg, #6d5dfc, #46c2ff);
+    background: linear-gradient(90deg, #ff6f91, #ff9671);
     border: none;
-    border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(109, 93, 252, 0.5);
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    color: white;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    overflow: hidden;
+    width: 100%;
+    transition: 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
     .cool-btn::before {
@@ -53,10 +63,10 @@ body {
         z-index: 0;
     }
 
-    .cool-btn:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 12px 25px rgba(109, 93, 252, 0.6);
-    }
+.cool-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
 
         .cool-btn:hover::before {
             transform: scale(1);
@@ -67,16 +77,39 @@ body {
         z-index: 1;
     }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.5);
+    }
+}
+
 .form-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 60%;
-    height: 60vh;
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    background: #fff;
-    box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+    padding: 40px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 360px;
+    animation: fadeIn 0.8s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
 
 
@@ -90,40 +123,83 @@ body {
 }
 
 .form-title {
-    margin-bottom: 20px;
     font-size: 28px;
-    text-align: center;
-    color: #333;
+    color: #d6336c;
+    margin-bottom: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .form-label {
-    margin-bottom: 6px;
+    display: block;
     font-weight: 600;
-    color: #444;
+    margin-bottom: 5px;
+    color: #555;
 }
 
 .form-input {
-    padding: 12px 14px;
-    font-size: 16px;
-    border: 1.5px solid #ccc;
-    border-radius: 8px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
     outline: none;
-    transition: border-color 0.3s;
+    font-size: 15px;
+    transition: 0.3s ease;
 }
 
-    .form-input:focus {
-        border-color: #6d5dfc;
-        box-shadow: 0 0 5px rgba(109, 93, 252, 0.3);
-    }
+.form-input:focus {
+        border-color: #ff6f91;
+        box-shadow: 0 0 8px rgba(255, 105, 180, 0.4);
+}
 
 .text-danger {
-    font-size: 14px;
-    color: red;
-    margin-top: 4px;
+    font-size: 13px;
+    color: #e63946;
 }
 
 .form-group {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-box::before {
+    content: "❤";
+    font-size: 100px;
+    color: rgba(255, 182, 193, 0.2);
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    transform: rotate(15deg);
+}
+
+@media (max-width: 480px) {
+    .form-box {
+        padding: 20px 15px;
+    }
+
+    .form-title {
+        font-size: 22px;
+    }
+
+    .cool-btn {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+
+    .form-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    color: #ff6f91;
+    animation: floatUp 2s ease forwards;
+    pointer-events: none;
 }

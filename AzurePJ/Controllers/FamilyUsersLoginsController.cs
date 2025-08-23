@@ -35,11 +35,11 @@ namespace AzurePJ.Controllers
             //{
             //    return View(user);
             //}
-            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Email))
+            if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password))
             {
                 return NotFound();
             }
-            var users = await _context.FamilyUsersLogins.FirstOrDefaultAsync(x => x.UserName == user.UserName && x.Email == user.Email);
+            var users = await _context.FamilyUsersLogins.FirstOrDefaultAsync(x => x.UserName == user.UserName && x.Password == user.Password);
             //Users存在しません
             if (users == null)
             {
