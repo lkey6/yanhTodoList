@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\img\\catm.jpeg",
+      "PackagePath": "staticwebassets\\img\\catm.jpeg"
+    },
+    {
       "Id": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

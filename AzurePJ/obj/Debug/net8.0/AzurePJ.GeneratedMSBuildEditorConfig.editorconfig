@@ -50,8 +50,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/FamilyUsersLogins/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmFtaWx5VXNlcnNMb2dpbnNcRWRpdC5jc2h0bWw=
+[C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/Albums/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/Albums/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/Albums/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/Albums/UploadPhoto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1zXFVwbG9hZFBob3RvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/zz037835/source/repos/AzurePJ/AzurePJ/Views/FamilyUsersLogins/Error1.cshtml]

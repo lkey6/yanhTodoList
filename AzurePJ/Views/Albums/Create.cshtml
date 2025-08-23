@@ -1,0 +1,22 @@
+﻿@model AzurePJ.Models.Album
+@{
+    ViewData["Title"] = "新しいアルバム作成";
+}
+
+<div class="container mt-5">
+    <h2>新しいアルバムを作成♡</h2>
+
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">アルバム名</label>
+            <input asp-for="Name" class="form-control" placeholder="例：家族旅行" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">説明（任意）</label>
+            <textarea asp-for="Description" class="form-control" placeholder="アルバムの説明を入力"></textarea>
+        </div>
+        <button type="submit" class="btn btn-pink" style="background-color:#ff85a2; color:white;">作成する♡</button>
+        <a asp-action="Index" class="btn btn-secondary">戻る</a>
+    </form>
+</div>

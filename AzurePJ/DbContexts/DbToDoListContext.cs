@@ -22,6 +22,9 @@ public partial class DbToDoListContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public DbSet<Album> Albums { get; set; }
+    public DbSet<Photo> Photos { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=tcp:yangx.database.windows.net,1433;Initial Catalog=DB-ToDoList;Persist Security Info=False;User ID=yx707835645;Password=Password01;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
@@ -76,6 +79,29 @@ public partial class DbToDoListContext : DbContext
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+        });
+
+        modelBuilder.Entity<Album>(entity =>
+        {
+            entity.ToTable("Albums");
+            entity.HasKey(a => a.Id);
+            entity.Property(a => a.Name).IsRequired().HasMaxLength(200);
+            entity.Property(a => a.Description).HasMaxLength(500);
+            entity.Property(a => a.CoverUrl).HasMaxLength(500);
+            entity.Property(a => a.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
+        });
+
+        modelBuilder.Entity<Photo>(entity =>
+        {
+            entity.ToTable("Photos");
+            entity.HasKey(p => p.Id);
+            entity.Property(p => p.Url).IsRequired().HasMaxLength(500);
+            entity.Property(p => p.UploadedAt).HasDefaultValueSql("SYSUTCDATETIME()");
+
+            entity.HasOne(p => p.Album)
+                  .WithMany(a => a.Photos)
+                  .HasForeignKey(p => p.AlbumId)
+                  .OnDelete(DeleteBehavior.SetNull);
         });
 
         OnModelCreatingPartial(modelBuilder);

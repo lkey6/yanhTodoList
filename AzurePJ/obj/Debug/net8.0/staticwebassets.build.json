@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XO0L54/5mTUkObOIt75NBFxLZJProUYcTlfWqnddiAA=",
+  "Hash": "XprhhV3Oh4A2Wr0AXb4OhrhoxB1sXlhxjomfzLAC3ts=",
   "Source": "AzurePJ",
   "BasePath": "_content/AzurePJ",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\images\\albums\\d93c1bd8-d54f-48c4-805e-d8d7da40872d.jpeg",
+      "SourceId": "AzurePJ",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\",
+      "BasePath": "_content/AzurePJ",
+      "RelativePath": "images/albums/d93c1bd8-d54f-48c4-805e-d8d7da40872d.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\albums\\d93c1bd8-d54f-48c4-805e-d8d7da40872d.jpeg"
     },
     {
       "Identity": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\img\\catm.jpeg",

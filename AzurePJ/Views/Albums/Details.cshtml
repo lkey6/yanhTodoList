@@ -1,0 +1,28 @@
+﻿@model AzurePJ.Models.Album
+@{
+    ViewData["Title"] = "アルバムの詳細";
+}
+
+<div class="container mt-4">
+    <h2>@Model.Name</h2>
+    <p>@Model.Description</p>
+
+    <div class="row">
+        @foreach (var photo in Model.Photos ?? new List<AzurePJ.Models.Photo>())
+        {
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="@photo.Url" alt="@photo.Title" style="object-fit:cover; height:200px;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@photo.Title</h5>
+                        <p class="card-text">@photo.Description</p>
+                        <small class="text-muted">@photo.UploadedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <a asp-action="UploadPhoto" asp-route-id="@Model.Id" class="btn btn-pink" style="background-color:#ff85a2; color:white;">新しい写真を追加♡</a>
+    <a asp-action="Index" class="btn btn-secondary">戻る</a>
+</div>

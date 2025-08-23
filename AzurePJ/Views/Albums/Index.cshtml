@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AzurePJ.Models.Album>
+@{
+    ViewData["Title"] = "アルバム一覧";
+}
+
+<div class="container">
+    <h1 class="text-center my-4">私たちのアルバム♡</h1>
+
+    <div class="text-center create-btn">
+        <a class="btn btn-pink" href="@Url.Action("Create")" style="background-color:#ff85a2; color:white;">新しいアルバムを作成</a>
+    </div>
+
+    <div class="row">
+        @foreach (var album in Model)
+        {
+            <div class="col-md-4 col-sm-6">
+                <div class="album-card">
+                    <a href="@Url.Action("Details", new { id = album.Id })">
+                        <img class="album-cover" src="@album.CoverUrl ?? " /images/default_cover.jpg"" alt="アルバムのカバー">
+                    </a>
+                    <div class="album-title">@album.Name</div>
+                    <div class="album-count">@album.Photos?.Count ?? 0 件の写真</div>
+                    <a class="btn btn-sm btn-outline-danger mt-2" href="@Url.Action("UploadPhoto", new { id = album.Id })">写真を追加♡</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

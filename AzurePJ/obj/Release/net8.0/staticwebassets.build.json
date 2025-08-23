@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SbziSA03fIP3k/VewKo1/s8eW1982r+x4Dp04/I9ucw=",
+  "Hash": "bxVEBOHY4Wyf87TA48fhnFxac8qe39Eh7A0FuYTC1Bk=",
   "Source": "AzurePJ",
   "BasePath": "_content/AzurePJ",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\img\\catm.jpeg",
+      "SourceId": "AzurePJ",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\",
+      "BasePath": "_content/AzurePJ",
+      "RelativePath": "img/catm.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\catm.jpeg"
     },
     {
       "Identity": "C:\\Users\\zz037835\\source\\repos\\AzurePJ\\AzurePJ\\wwwroot\\js\\site.js",

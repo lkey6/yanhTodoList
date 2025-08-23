@@ -45,7 +45,7 @@ namespace AzurePJ.Controllers
             {
                 return View("Error1");
             }
-            return View("Edit");
+            return RedirectToAction("Index", "Albums");
         }
 
         // GET: FamilyUsersLogins/Edit/5
