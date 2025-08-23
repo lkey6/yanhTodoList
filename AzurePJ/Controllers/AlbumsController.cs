@@ -25,8 +25,8 @@ namespace AzurePJ.Controllers
             //    .ToListAsync();
 
             //return View(albums);
-            var files = await _blobService.ListBlobsWithSasAsync("mm/");
-            return View(files);
+            List<string> images = await _blobService.GetImageUrlsAsync();
+            return View(images); // URLリスト
         }
 
         // GET: Albums/Create
