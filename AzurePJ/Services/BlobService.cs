@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ public class BlobService
 
     public BlobService(IConfiguration configuration)
     {
-        // 从环境变量读取连接字符串
         _connectionString = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING")
             ?? throw new Exception("環境変数 AZURE_STORAGE_CONNECTION_STRING を設定してください");
 
@@ -26,11 +26,21 @@ public class BlobService
         var blobUrls = new List<string>();
         BlobContainerClient containerClient = new BlobContainerClient(_connectionString, _containerName);
 
-        // 遍历 mm 文件夹下的所有 Blob
         await foreach (BlobItem blobItem in containerClient.GetBlobsAsync(prefix: _folderName + "/"))
         {
             BlobClient blobClient = containerClient.GetBlobClient(blobItem.Name);
-            blobUrls.Add(blobClient.Uri.ToString());
+
+            var sasBuilder = new BlobSasBuilder
+            {
+                BlobContainerName = containerClient.Name,
+                BlobName = blobItem.Name,
+                Resource = "b",
+                ExpiresOn = DateTimeOffset.UtcNow.AddDays(30)  //30日
+            };
+            sasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+            Uri sasUri = blobClient.GenerateSasUri(sasBuilder);
+            blobUrls.Add(sasUri.ToString());
         }
 
         return blobUrls;
