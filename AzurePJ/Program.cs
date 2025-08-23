@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSingleton<BlobService>();
+
 builder.Services.AddDbContext<DbToDoListContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

@@ -8,21 +8,25 @@ namespace AzurePJ.Controllers
     public class AlbumsController : Controller
     {
         private readonly DbToDoListContext _context;
+        private readonly BlobService _blobService;
 
-        public AlbumsController(DbToDoListContext context)
+        public AlbumsController(DbToDoListContext context, BlobService blobService)
         {
             _context = context;
+            _blobService = blobService;
         }
 
         // GET: Albums
         public async Task<IActionResult> Index()
         {
-            var albums = await _context.Albums
-                .Include(a => a.Photos)
-                .OrderByDescending(a => a.CreatedAt)
-                .ToListAsync();
+            //var albums = await _context.Albums
+            //    .Include(a => a.Photos)
+            //    .OrderByDescending(a => a.CreatedAt)
+            //    .ToListAsync();
 
-            return View(albums);
+            //return View(albums);
+            var files = await _blobService.ListBlobsWithSasAsync("mm/");
+            return View(files);
         }
 
         // GET: Albums/Create
