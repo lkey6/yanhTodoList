@@ -11,7 +11,7 @@
         <form asp-action="Index" asp-controller="FamilyUsersLogins" method="post">
             @Html.AntiForgeryToken()
             <div class="form-group">
-                <label asp-for="UserName" class="form-label">名前🐈</label>
+                <label asp-for="UserName" class="form-label">名前&#128008;&#8205;&#11035;</label>
                 <input asp-for="UserName" name="UserName" class="form-input" placeholder="" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
