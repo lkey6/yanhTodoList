@@ -45,47 +45,7 @@ namespace AzurePJ.Controllers
             {
                 return View("Error1");
             }
-            return Redirect("Edit");
-        }
-
-        // GET: FamilyUsersLogins/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var familyUsersLogin = await _context.FamilyUsersLogins
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (familyUsersLogin == null)
-            {
-                return NotFound();
-            }
-
-            return View(familyUsersLogin);
-        }
-
-        // GET: FamilyUsersLogins/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: FamilyUsersLogins/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,UserName,Relationship,Email,Phone,IsActive,CreatedAt,LastLogin")] FamilyUsersLogin familyUsersLogin)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(familyUsersLogin);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(familyUsersLogin);
+            return View("Edit");
         }
 
         // GET: FamilyUsersLogins/Edit/5
@@ -128,39 +88,6 @@ namespace AzurePJ.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(familyUsersLogin);
-        }
-
-        // GET: FamilyUsersLogins/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var familyUsersLogin = await _context.FamilyUsersLogins
-                .FirstOrDefaultAsync(m => m.UserId == id);
-            if (familyUsersLogin == null)
-            {
-                return NotFound();
-            }
-
-            return View(familyUsersLogin);
-        }
-
-        // POST: FamilyUsersLogins/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var familyUsersLogin = await _context.FamilyUsersLogins.FindAsync(id);
-            if (familyUsersLogin != null)
-            {
-                _context.FamilyUsersLogins.Remove(familyUsersLogin);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool FamilyUsersLoginExists(int id)

@@ -17,17 +17,18 @@
 
             <div class="form-group">
                 <label asp-for="Email" class="form-label">Email</label>
-                <input asp-for="Email" name="Email" class="form-input" type="email" placeholder="••••••••" />
+                <input asp-for="Email" name="Email" class="form-input" type="email" placeholder="your@email.com" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <button class="cool-btn" type="submit">Sign in</button>
-            <div>
-                <label>初めてご利用ですか？</label><a asp-controller="Users" asp-action="Register">Register</a>
-            </div>
+            <button class="cool-btn" type="submit" id="loginBtn">Sign in</button>
         </form>
     </div>
 </div>
 
-<script>
-</script>
+@section Scripts {
+    <script>
+        initLoveButton('#loginBtn');
+    </script>
+}
+
