@@ -25,8 +25,18 @@ namespace AzurePJ.Controllers
             //    .ToListAsync();
 
             //return View(albums);
-            List<string> images = await _blobService.GetImageUrlsAsync();
-            return View(images); // URLリスト
+            var folders = await _blobService.GetFoldersAsync();
+            return View(folders);
+        }
+
+        // 指定フォルダの画像一覧
+        public async Task<IActionResult> Folder(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return RedirectToAction("Index");
+
+            var images = await _blobService.GetImagesAsync(id);
+            ViewBag.FolderName = id;
+            return View(images);
         }
 
         // GET: Albums/Create

@@ -1,79 +1,14 @@
 ﻿@model List<string>
-
 @{
-    ViewData["Title"] = "MM フォルダの画像一覧";
+    ViewData["Title"] = "フォルダ一覧";
 }
 
-<h2>MM フォルダの画像一覧</h2>
-<p>画像をクリックすると拡大表示されます。</p>
-
-<style>
-    .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-        .gallery img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            padding: 2px;
-            transition: transform 0.2s;
-        }
-
-            .gallery img:hover {
-                transform: scale(1.1);
-            }
-
-    #lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 2px solid #fff;
-        }
-
-        #lightbox span {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-        }
-</style>
-
-<div class="gallery">
-    @foreach (var url in Model)
+<h2>「mengmeng」コンテナのフォルダ一覧</h2>
+<ul>
+    @foreach (var folder in Model)
     {
-        <img src="@url" alt="MM画像" onclick="openLightbox(this.src)" />
+        <li>
+            <a asp-action="Folder" asp-route-id="@folder">@folder</a>
+        </li>
     }
-</div>
-
-<div id="lightbox" onclick="closeLightbox()">
-    <span onclick="closeLightbox()">×</span>
-    <img id="lightbox-img" src="" />
-</div>
-
-<script>
-    function openLightbox(src){
-        document.getElementById('lightbox-img').src = src;
-        document.getElementById('lightbox').style.display = 'flex';
-    }
-    function closeLightbox(){
-        document.getElementById('lightbox').style.display = 'none';
-    }
-</script>
+</ul>

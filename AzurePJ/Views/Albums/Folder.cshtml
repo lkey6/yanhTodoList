@@ -1,0 +1,79 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "画像一覧";
+    var folderName = ViewBag.FolderName as string;
+}
+
+<h2>フォルダ: @folderName</h2>
+<a asp-action="Index">← フォルダ一覧に戻る</a>
+
+<div class="image-grid">
+    @foreach (var url in Model)
+    {
+        <div class="image-item">
+            <img src="@url" alt="画像" onclick="openPreview('@url')" />
+        </div>
+    }
+</div>
+
+<!-- モーダル -->
+<div id="previewModal" class="modal">
+    <span class="close" onclick="closePreview()">×</span>
+    <img id="previewImg" />
+</div>
+
+<style>
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .image-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .image-item img:hover {
+            transform: scale(1.05);
+        }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        text-align: center;
+    }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 50px;
+        }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function openPreview(url) {
+        document.getElementById("previewImg").src = url;
+        document.getElementById("previewModal").style.display = "block";
+    }
+    function closePreview() {
+        document.getElementById("previewModal").style.display = "none";
+    }
+</script>
