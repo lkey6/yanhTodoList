@@ -125,5 +125,28 @@ public class BlobService
         return imageUrls;
     }
 
+    public async Task<Dictionary<string, List<(string ThumbnailUrl, string OriginalUrl)>>> GetThumbnailsAsync()
+    {
+        var result = new Dictionary<string, List<(string, string)>>();
+
+        var thumbnailContainer = new BlobContainerClient(_connectionString, "thumbnails");
+        var originalContainer = new BlobContainerClient(_connectionString, "images");
+
+        await foreach (BlobItem blobItem in thumbnailContainer.GetBlobsAsync(BlobTraits.None, BlobStates.None, null))
+        {
+            string thumbnailUrl = $"{thumbnailContainer.Uri}/{blobItem.Name}";
+            string originalUrl = $"{originalContainer.Uri}/{blobItem.Name}";
+
+            string folder = System.IO.Path.GetDirectoryName(blobItem.Name) ?? "root";
+
+            if (!result.ContainsKey(folder))
+                result[folder] = new List<(string, string)>();
+
+            result[folder].Add((thumbnailUrl, originalUrl));
+        }
+
+        return result;
+    }
+
 
 }

@@ -19,14 +19,8 @@ namespace AzurePJ.Controllers
         // GET: Albums
         public async Task<IActionResult> Index()
         {
-            //var albums = await _context.Albums
-            //    .Include(a => a.Photos)
-            //    .OrderByDescending(a => a.CreatedAt)
-            //    .ToListAsync();
-
-            //return View(albums);
-            var folders = await _blobService.GetFoldersAsync();
-            return View(folders);
+            var images = await _blobService.GetThumbnailsAsync();
+            return View(images);
         }
 
         // 指定フォルダの画像一覧

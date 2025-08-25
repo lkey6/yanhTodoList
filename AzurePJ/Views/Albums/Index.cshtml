@@ -1,14 +1,16 @@
-﻿@model List<string>
-@{
-    ViewData["Title"] = "フォルダ一覧";
-}
+﻿@model Dictionary<string, List<(string ThumbnailUrl, string OriginalUrl)>>
 
-<h2>「mengmeng」コンテナのフォルダ一覧</h2>
-<ul>
-    @foreach (var folder in Model)
-    {
-        <li>
-            <a asp-action="Folder" asp-route-id="@folder">@folder</a>
-        </li>
-    }
-</ul>
+<h2>图库</h2>
+
+@foreach (var folder in Model)
+{
+    <h3>@folder.Key</h3>
+    <div class="gallery" style="display:flex; flex-wrap:wrap;">
+        @foreach (var item in folder.Value)
+        {
+            <a href="@item.OriginalUrl" target="_blank" style="margin:5px;">
+                <img src="@item.ThumbnailUrl" alt="Thumbnail" style="width:150px; height:150px; object-fit:cover;" />
+            </a>
+        }
+    </div>
+}
