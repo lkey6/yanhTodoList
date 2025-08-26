@@ -1,16 +1,43 @@
-﻿@model Dictionary<string, List<(string ThumbnailUrl, string OriginalUrl)>>
+﻿@model List<string>
 
-<h2>图库</h2>
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+    <h2 class="m-0">♡アルバム♡</h2>
+    <button class="cool-btn mt-2 mt-md-0" onclick="location.href='/Albums/Create'">アルバムを作成</button>
+</div>
 
-@foreach (var folder in Model)
-{
-    <h3>@folder.Key</h3>
-    <div class="gallery" style="display:flex; flex-wrap:wrap;">
-        @foreach (var item in folder.Value)
-        {
-            <a href="@item.OriginalUrl" target="_blank" style="margin:5px;">
-                <img src="@item.ThumbnailUrl" alt="Thumbnail" style="width:150px; height:150px; object-fit:cover;" />
-            </a>
+<ul>
+    @foreach (var folder in Model)
+    {
+        <div class="album-grid">
+        <li>
+            <a href="/Albums/Folder?name=@folder">@folder</a>
+        </li>
+        </div>
+    }
+</ul>
+
+
+<style>
+    .album-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .thumbnail-img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .thumbnail-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-    </div>
-}
+
+    .thumbnail-link {
+        display: block;
+    }
+</style>

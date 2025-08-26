@@ -9,6 +9,9 @@ using AzurePJ.DbContexts;
 using AzurePJ.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace AzurePJ.Controllers
 {
@@ -45,7 +48,18 @@ namespace AzurePJ.Controllers
             {
                 return View("Error1");
             }
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
             return RedirectToAction("Index", "Albums");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "FamilyUsersLogins");
         }
 
         // GET: FamilyUsersLogins/Edit/5

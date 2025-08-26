@@ -1,4 +1,5 @@
 using AzurePJ.DbContexts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,12 +8,27 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddSingleton<BlobService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/FamilyUsersLogins/Index";
+        options.LogoutPath = "/FamilyUsersLogins/Logout";
+    });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<DbToDoListContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSingleton(x => new BlobService());
+
+
 var app = builder.Build();
+
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -21,7 +37,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

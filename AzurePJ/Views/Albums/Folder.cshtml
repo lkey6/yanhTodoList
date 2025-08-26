@@ -1,79 +1,43 @@
-﻿@model List<string>
+﻿@model List<(string ThumbnailUrl, string OriginalUrl)>
 @{
-    ViewData["Title"] = "画像一覧";
     var folderName = ViewBag.FolderName as string;
 }
 
-<h2>フォルダ: @folderName</h2>
-<a asp-action="Index">← フォルダ一覧に戻る</a>
-
-<div class="image-grid">
-    @foreach (var url in Model)
-    {
-        <div class="image-item">
-            <img src="@url" alt="画像" onclick="openPreview('@url')" />
-        </div>
-    }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>@folderName</h2>
+    <a href="/Albums/Index" class="btn btn-secondary">戻る</a>
 </div>
 
-<!-- モーダル -->
-<div id="previewModal" class="modal">
-    <span class="close" onclick="closePreview()">×</span>
-    <img id="previewImg" />
+<div class="album-grid">
+    @foreach (var item in Model)
+    {
+        <a href="@item.OriginalUrl" target="_blank" class="thumbnail-link">
+            <img src="@item.ThumbnailUrl" class="thumbnail-img" />
+        </a>
+    }
 </div>
 
 <style>
-    .image-grid {
+    .album-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
     }
 
-    .image-item img {
+    .thumbnail-img {
         width: 100%;
-        height: auto;
+        height: 150px;
+        object-fit: cover;
         border-radius: 8px;
-        cursor: pointer;
-        transition: transform 0.2s;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
 
-        .image-item img:hover {
+        .thumbnail-img:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.8);
-        text-align: center;
-    }
-
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-            margin-top: 50px;
-        }
-
-    .close {
-        position: absolute;
-        top: 20px;
-        right: 40px;
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
+    .thumbnail-link {
+        display: block;
     }
 </style>
-
-<script>
-    function openPreview(url) {
-        document.getElementById("previewImg").src = url;
-        document.getElementById("previewModal").style.display = "block";
-    }
-    function closePreview() {
-        document.getElementById("previewModal").style.display = "none";
-    }
-</script>
