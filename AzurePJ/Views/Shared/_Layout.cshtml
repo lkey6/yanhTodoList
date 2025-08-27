@@ -11,27 +11,25 @@
 @if (User.Identity.IsAuthenticated)
 {
     <body>
-        <div class="main-container">
-            <div class="sidebar d-flex flex-column">
+        <div class="main-container d-flex">
+            <div id="sidebar" class="sidebar d-flex flex-column">
 
-                <div class="sidebar-header text-center">
-                    <div class="fw-bold">お帰り、@User.Identity.Name</div>
-                    <br />
-                    <br />
-                    <a href="/FamilyUsersLogins/Logout" class="cool-btn">ログアウト</a>
+                <div class="sidebar-header">
+                    <h5>メニュー</h5>
                 </div>
-
-                <nav class="nav flex-column mt-3 flex-grow-1 px-2">
-                    <a class="nav-link d-flex align-items-center" href="/Albums"><span class="me-2">📁</span>アルバム</a>
-                    <a class="nav-link d-flex align-items-center" href="/Favorites"><span class="me-2">⭐</span>お気に入り</a>
-                    <a class="nav-link d-flex align-items-center" href="/Shared"><span class="me-2">👥</span>共有</a>
-                    <a class="nav-link d-flex align-items-center" href="/Trash"><span class="me-2">🗑️</span>ゴミ箱</a>
-                </nav>
+                    @* <div class="fw-bold">お帰り、@User.Identity.Name</div> *@
+                <a class="nav-link d-flex align-items-center" href="/Photos"><span class="me-2">🖼️</span>フォト</a>
+                <a class="nav-link d-flex align-items-center" href="/Albums"><span class="me-2">🗂️</span>アルバム</a>
+                <form asp-controller="FamilyUsersLogins" asp-action="Logout" method="post" class="mt-auto">
+                    <button type="submit" class="btn btn-outline-danger w-100">ログアウト</button>
+                </form>
 
             </div>
 
+            <div id="sidebarBackdrop"></div>
 
             <div class="content">
+                <button id="sidebarToggle" class="btn btn-light d-md-none mb-2">☰ メニュー</button>
                 @RenderBody()
             </div>
         </div>

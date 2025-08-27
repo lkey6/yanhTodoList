@@ -53,7 +53,7 @@ namespace AzurePJ.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            return RedirectToAction("Index", "Albums");
+            return RedirectToAction("Index", "Photos");
         }
 
         public async Task<IActionResult> Logout()

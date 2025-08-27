@@ -1,43 +1,19 @@
 ﻿@model List<string>
 
-<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-    <h2 class="m-0">♡アルバム♡</h2>
-    <button class="cool-btn mt-2 mt-md-0" onclick="location.href='/Albums/Create'">アルバムを作成</button>
+<div class="album-header d-flex align-items-center justify-content-between mb-3">
+    <h2 class="album-title m-0">♡アルバム♡</h2>
+    <button class="cool-btn album-create-btn" onclick="location.href='/Albums/Create'">アルバムを作成</button>
 </div>
 
-<ul>
+<ul class="album-list">
     @foreach (var folder in Model)
     {
-        <div class="album-grid">
-        <li>
-            <a href="/Albums/Folder?name=@folder">@folder</a>
+        <li class="album-item">
+            <a class="thumbnail-link" href="/Albums/Folder?name=@folder">
+                <div class="thumbnail-img-container">
+                    <span class="thumbnail-placeholder">@folder</span>
+                </div>
+            </a>
         </li>
-        </div>
     }
 </ul>
-
-
-<style>
-    .album-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-    }
-
-    .thumbnail-img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-        .thumbnail-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-    .thumbnail-link {
-        display: block;
-    }
-</style>

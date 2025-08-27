@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
+using AzurePJ.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,23 @@ public class BlobService
         {
             BlobContainerName = blobClient.BlobContainerName,
             BlobName = blobClient.Name,
+            Resource = "b",
+            ExpiresOn = DateTimeOffset.UtcNow.AddHours(hoursValid)
+        };
+        sasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+        return blobClient.GenerateSasUri(sasBuilder).ToString();
+    }
+
+    public string GenerateSasUrl(string containerName, string blobPath, int hoursValid = 1)
+    {
+        var containerClient = GetContainerClient(containerName);
+        var blobClient = containerClient.GetBlobClient(blobPath);
+
+        var sasBuilder = new BlobSasBuilder
+        {
+            BlobContainerName = containerName,
+            BlobName = blobPath,
             Resource = "b",
             ExpiresOn = DateTimeOffset.UtcNow.AddHours(hoursValid)
         };

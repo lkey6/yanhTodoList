@@ -1,0 +1,16 @@
+﻿@model List<AzurePJ.Models.PhotoGroupViewModel>
+
+@foreach (var dayGroup in Model)
+{
+    <h3>@dayGroup.Date.ToString("yyyy/MM/dd")</h3>
+    <div class="row">
+        @foreach (var photo in dayGroup.Photos)
+        {
+            <div class="col-6 col-md-3 mb-3">
+                <a href="@photo.OriginalUrl" target="_blank">
+                    <img src="@photo.ThumbnailUrl" class="img-fluid rounded" alt="@photo.Title" />
+                </a>
+            </div>
+        }
+    </div>
+}

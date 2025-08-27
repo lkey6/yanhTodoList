@@ -29,24 +29,29 @@ body {
 }
 
 .main-container {
-    flex: 1;
     display: flex;
-    min-height: 0;
+    min-height: 100vh;
 }
 
 .sidebar {
     width: 220px;
-    background-color: rgba(255, 255, 255, 0.85);
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-    flex-shrink: 0;
-    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    transition: left 0.3s ease;
 }
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
 
 .sidebar-header {
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sidebar.collapsed .nav-link span {
+    display: none;
 }
 
 .sidebar .nav-link {
@@ -65,12 +70,20 @@ body {
     width: 100%;
 }
 
+#sidebarBackdrop {
+    display: none;
+}
+
 .content {
     flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.6);
 }
+
+    .content.expanded {
+        margin-left: 60px;
+    }
 
 footer.footer {
     border-top: 1px solid rgba(0, 0, 0, 0.08);
@@ -158,17 +171,19 @@ footer.footer {
 .cool-btn {
     background: linear-gradient(90deg, #ff6f91, #ff9671);
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 14px;
     border-radius: 25px;
     color: white;
     cursor: pointer;
-    width: 100%;
+    width: auto;
+    min-width: 80px;
     transition: 0.3s ease;
     font-weight: bold;
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
     .cool-btn::before {
@@ -231,7 +246,154 @@ footer.footer {
     pointer-events: none;
 }
 
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+        left: -220px;
+        top: 0;
+        height: 100%;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+    .sidebar-header {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .sidebar .nav-link {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    #sidebarBackdrop.active {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 900;
+    }
+
+    .cool-btn,
+    .album-create-btn {
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .album-title {
+        font-size: 1.4rem;
+    }
+
+    .thumbnail-img-container {
+        height: 100px;
+    }
+
+    .thumbnail-placeholder {
+        font-size: 0.9rem;
+    }
+
+    .thumbnail-img-container {
+        height: 100px;
+    }
+
+    .thumbnail-placeholder {
+        font-size: 0.9rem;
+    }
+}
+
+.album-title {
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.album-create-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+.album-header {
+    width: 100%;
+}
+
+.album-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.album-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnail-img-container {
+    width: 100%;
+    height: 120px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .thumbnail-img-container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+.thumbnail-placeholder {
+    font-size: 1rem;
+    text-align: center;
+    padding: 5px;
+}
+
+.thumbnail-link {
+    display: block;
+    width: 100%;
+}
+
 @media (max-width: 480px) {
+
+    .album-title {
+        font-size: 1.2rem;
+    }
+
+    .cool-btn,
+    .album-create-btn {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    .thumbnail-img-container {
+        height: 90px;
+    }
+
+    .thumbnail-placeholder {
+        font-size: 0.8rem;
+    }
+
     .form-box {
         padding: 20px 15px;
         width: 90%;
@@ -239,11 +401,6 @@ footer.footer {
 
     .form-title {
         font-size: 22px;
-    }
-
-    .cool-btn {
-        font-size: 15px;
-        padding: 10px;
     }
 
     .form-label {

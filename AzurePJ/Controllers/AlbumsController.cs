@@ -32,5 +32,11 @@ namespace AzurePJ.Controllers
             ViewBag.FolderName = name;
             return View(images);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

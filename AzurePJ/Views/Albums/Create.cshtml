@@ -1,22 +1,23 @@
 ﻿@model AzurePJ.Models.Album
-@{
-    ViewData["Title"] = "新しいアルバム作成";
-}
 
-<div class="container mt-5">
-    <h2>新しいアルバムを作成♡</h2>
+<div class="album-header d-flex align-items-center justify-content-between mb-3">
+    <h2 class="album-title m-0">アルバムを作成</h2>
+    <a href="/Albums" class="cool-btn album-back-btn">戻る</a>
+</div>
 
+<div class="album-form-container">
     <form asp-action="Create" method="post">
-        <div class="mb-3">
-            <label class="form-label">アルバム名</label>
-            <input asp-for="Name" class="form-control" placeholder="例：家族旅行" />
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Name">アルバム名</label>
+            <input class="form-input" asp-for="Name" placeholder="新しいアルバム名を入力" required />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        <div class="mb-3">
-            <label class="form-label">説明（任意）</label>
-            <textarea asp-for="Description" class="form-control" placeholder="アルバムの説明を入力"></textarea>
-        </div>
-        <button type="submit" class="btn btn-pink" style="background-color:#ff85a2; color:white;">作成する♡</button>
-        <a asp-action="Index" class="btn btn-secondary">戻る</a>
+        <button type="submit" class="cool-btn album-create-btn">
+            写真を追加
+        </button>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

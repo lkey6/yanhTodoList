@@ -95,9 +95,15 @@ public partial class DbToDoListContext : DbContext
         {
             entity.ToTable("Photos");
             entity.HasKey(p => p.Id);
-            entity.Property(p => p.Url).IsRequired().HasMaxLength(500);
+            entity.Property(p => p.ThumbnailPath).IsRequired().HasMaxLength(500);
+            entity.Property(p => p.OriginalPath).IsRequired().HasMaxLength(500);
             entity.Property(p => p.UploadedAt).HasDefaultValueSql("SYSUTCDATETIME()");
-
+            entity.Property(p => p.Description)
+                            .HasColumnType("nvarchar(max)")
+                            .IsRequired(false);
+            entity.Property(p => p.Title)
+            .HasMaxLength(255)
+            .IsRequired(false);
             entity.HasOne(p => p.Album)
                   .WithMany(a => a.Photos)
                   .HasForeignKey(p => p.AlbumId)

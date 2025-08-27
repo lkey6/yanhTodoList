@@ -33,4 +33,8 @@
     <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Photos\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
