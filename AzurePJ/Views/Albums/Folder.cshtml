@@ -1,43 +1,31 @@
-﻿@model List<(string ThumbnailUrl, string OriginalUrl)>
+﻿@model List<AzurePJ.Models.PhotoGroupViewModel>
 @{
-    var folderName = ViewBag.FolderName as string;
+    var albumName = ViewBag.AlbumName;
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>@folderName</h2>
-    <a href="/Albums/Index" class="btn btn-secondary">戻る</a>
+<h2>@albumName</h2>
+
+<button class="cool-btn album-create-btn" onclick="location.href='/Albums/Index'">戻る</button>
+
+@foreach (var group in Model)
+{
+    <div class="photo-date-group">
+        <h5>@group.Date.ToString("yyyy/MM/dd")</h5>
+        <div class="photo-selection-grid">
+            @for (int i = 0; i < group.Photos.Count; i++)
+            {
+                var photo = group.Photos[i];
+                <label class="photo-item">
+                    <img src="@photo.ThumbnailUrl" title="@photo.Title"
+                         onclick="openPreview('@photo.OriginalUrl', '@photo.Title')" />
+                </label>
+            }
+        </div>
+    </div>
+}
+<!-- 弹窗 -->
+<div id="previewModal" class="preview-modal" onclick="closePreview()">
+    <span class="close-btn" onclick="closePreview()">&times;</span>
+    <img class="preview-img" id="previewImg" />
+    <div id="previewTitle" class="preview-title"></div>
 </div>
-
-<div class="album-grid">
-    @foreach (var item in Model)
-    {
-        <a href="@item.OriginalUrl" target="_blank" class="thumbnail-link">
-            <img src="@item.ThumbnailUrl" class="thumbnail-img" />
-        </a>
-    }
-</div>
-
-<style>
-    .album-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-    }
-
-    .thumbnail-img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-        .thumbnail-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-    .thumbnail-link {
-        display: block;
-    }
-</style>

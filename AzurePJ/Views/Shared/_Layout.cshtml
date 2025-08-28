@@ -1,73 +1,67 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AzurePJ</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AzurePJ.styles.css" asp-append-version="true" />
 </head>
-@if (User.Identity.IsAuthenticated)
-{
-    <body>
-        <div class="main-container d-flex">
-            <div id="sidebar" class="sidebar d-flex flex-column">
+<body>
+    <div class="page-wrapper-grid">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="main-container-grid">
+                <nav id="sidebar" class="sidebar" aria-label="Side Navigation">
+                    <div class="sidebar-header">
+                        <h5>メニュー</h5>
+                    </div>
+                    <a class="nav-link" href="/Photos">🖼️ フォト</a>
+                    <a class="nav-link" href="/Albums">🗂️ アルバム</a>
+                    <form asp-controller="FamilyUsersLogins" asp-action="Logout" method="post" class="mt-auto">
+                        <button type="submit" class="btn btn-outline-danger w-100">ログアウト</button>
+                    </form>
+                </nav>
 
-                <div class="sidebar-header">
-                    <h5>メニュー</h5>
-                </div>
-                    @* <div class="fw-bold">お帰り、@User.Identity.Name</div> *@
-                <a class="nav-link d-flex align-items-center" href="/Photos"><span class="me-2">🖼️</span>フォト</a>
-                <a class="nav-link d-flex align-items-center" href="/Albums"><span class="me-2">🗂️</span>アルバム</a>
-                <form asp-controller="FamilyUsersLogins" asp-action="Logout" method="post" class="mt-auto">
-                    <button type="submit" class="btn btn-outline-danger w-100">ログアウト</button>
-                </form>
+                <div id="sidebarBackdrop"></div>
 
+                <main class="content" role="main">
+                    <button id="sidebarToggle" class="btn btn-light d-md-none mb-2" aria-label="Toggle Sidebar">☰ メニュー</button>
+                    @RenderBody()
+                </main>
             </div>
-
-            <div id="sidebarBackdrop"></div>
-
-            <div class="content">
-                <button id="sidebarToggle" class="btn btn-light d-md-none mb-2">☰ メニュー</button>
-                @RenderBody()
+        }
+        else
+        {
+            <div class="center-wrapper">
+                <main role="main" class="pb-3 form-box">
+                    @RenderBody()
+                </main>
             </div>
-        </div>
-        <footer class="border-top footer text-muted">
+        }
+
+        <footer class="footer text-muted">
             <div class="container text-center">
                 <small>© 2025 家族アルバム. みんなの思い出を大切に</small>
             </div>
         </footer>
+    </div>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
-}
-else
-{
-    <body>
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>
-
-        <footer class="border-top footer text-muted">
-            <div class="container text-center">
-                <small>© 2025 家族アルバム. みんなの思い出を大切に</small>
-            </div>
-        </footer>
-
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
-}
-
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $('#sidebarToggle').click(function () {
+                $('#sidebar').toggleClass('active');
+                $('#sidebarBackdrop').toggleClass('active');
+            });
+            $('#sidebarBackdrop').click(function () {
+                $('#sidebar').removeClass('active');
+                $('#sidebarBackdrop').removeClass('active');
+            });
+        });
+    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>

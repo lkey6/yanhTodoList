@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<AzurePJ.Models.AlbumViewModel>
 
 <div class="album-header d-flex align-items-center justify-content-between mb-3">
     <h2 class="album-title m-0">♡アルバム♡</h2>
@@ -6,14 +6,54 @@
 </div>
 
 <ul class="album-list">
-    @foreach (var folder in Model)
+    @foreach (var album in Model)
     {
         <li class="album-item">
-            <a class="thumbnail-link" href="/Albums/Folder?name=@folder">
+            <a class="thumbnail-link" href="/Albums/Folder/@album.Id">
                 <div class="thumbnail-img-container">
-                    <span class="thumbnail-placeholder">@folder</span>
+                    @if (!string.IsNullOrEmpty(album.CoverUrl))
+                    {
+                        <img src="@album.CoverUrl" alt="@album.Name" />
+                    }
+                    else
+                    {
+                        <span class="thumbnail-placeholder">@album.Name</span>
+                    }
                 </div>
+                <div class="album-name">@album.Name</div>
             </a>
         </li>
     }
 </ul>
+
+<style>
+.album-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+}
+.album-item {
+    text-align: center;
+}
+.thumbnail-img-container img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.thumbnail-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    background-color: #eee;
+    border-radius: 8px;
+    font-weight: bold;
+}
+.album-name {
+    margin-top: 5px;
+    font-weight: 500;
+}
+</style>

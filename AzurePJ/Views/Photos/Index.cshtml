@@ -1,16 +1,36 @@
 ﻿@model List<AzurePJ.Models.PhotoGroupViewModel>
+@{
+    var albumName = "相册"; // Index 页面可以显示默认标题或自定义标题
+}
 
-@foreach (var dayGroup in Model)
+<h2>@albumName</h2>
+
+@{
+    // 用于计算每张照片在全局数组中的索引
+    int globalIndex = 0;
+}
+
+@foreach (var group in Model)
 {
-    <h3>@dayGroup.Date.ToString("yyyy/MM/dd")</h3>
-    <div class="row">
-        @foreach (var photo in dayGroup.Photos)
-        {
-            <div class="col-6 col-md-3 mb-3">
-                <a href="@photo.OriginalUrl" target="_blank">
-                    <img src="@photo.ThumbnailUrl" class="img-fluid rounded" alt="@photo.Title" />
-                </a>
-            </div>
-        }
+    <div class="photo-date-group">
+        <h5>@group.Date.ToString("yyyy/MM/dd")</h5>
+        <div class="photo-selection-grid">
+            @for (int i = 0; i < group.Photos.Count; i++)
+            {
+                var photo = group.Photos[i];
+                <label class="photo-item">
+                    <img src="@photo.ThumbnailUrl" title="@photo.Title"
+                         onclick="openPreview('@photo.OriginalUrl', '@photo.Title')" />
+                </label>
+                globalIndex++;
+            }
+        </div>
     </div>
 }
+
+<!-- 大图预览弹窗 -->
+<div id="previewModal" class="preview-modal" onclick="closePreview()">
+    <span class="close-btn" onclick="closePreview()">&times;</span>
+    <img class="preview-img" id="previewImg" />
+    <div id="previewTitle" class="preview-title"></div>
+</div>

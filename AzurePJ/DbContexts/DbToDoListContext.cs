@@ -24,6 +24,7 @@ public partial class DbToDoListContext : DbContext
 
     public DbSet<Album> Albums { get; set; }
     public DbSet<Photo> Photos { get; set; }
+    public DbSet<AlbumPhoto> AlbumPhotos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=tcp:yangx.database.windows.net,1433;Initial Catalog=DB-ToDoList;Persist Security Info=False;User ID=yx707835645;Password=Password01;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
@@ -109,6 +110,9 @@ public partial class DbToDoListContext : DbContext
                   .HasForeignKey(p => p.AlbumId)
                   .OnDelete(DeleteBehavior.SetNull);
         });
+
+        modelBuilder.Entity<AlbumPhoto>()
+            .HasKey(ap => new { ap.AlbumId, ap.PhotoId });
 
         OnModelCreatingPartial(modelBuilder);
     }

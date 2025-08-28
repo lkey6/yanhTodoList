@@ -1,23 +1,69 @@
-﻿@model AzurePJ.Models.Album
+﻿@model List<AzurePJ.Models.PhotoGroupViewModel>
 
 <div class="album-header d-flex align-items-center justify-content-between mb-3">
-    <h2 class="album-title m-0">アルバムを作成</h2>
-    <a href="/Albums" class="cool-btn album-back-btn">戻る</a>
+    <h2 class="album-title m-0">アルバム作成</h2>
 </div>
 
-<div class="album-form-container">
-    <form asp-action="Create" method="post">
-        <div class="form-group mb-3">
-            <label class="form-label" asp-for="Name">アルバム名</label>
-            <input class="form-input" asp-for="Name" placeholder="新しいアルバム名を入力" required />
-            <span asp-validation-for="Name" class="text-danger"></span>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label>アルバム名</label>
+        <input type="text" name="name" class="form-control" required />
+    </div>
+
+    <h4>写真を追加</h4>
+
+    <button class="cool-btn album-create-btn" onclick="location.href='/Albums/Index'">戻る</button>
+
+    <!-- 本地上传图片 -->
+    <div class="mb-3">
+        <label>ローカル写真を選択</label>
+        <input type="file" id="localFiles" name="localFiles" class="form-control" multiple accept="image/*" />
+    </div>
+
+    <div id="localPreview" class="photo-selection-grid mb-3"></div>
+
+    @foreach (var group in Model)
+    {
+        <div class="photo-date-group" id="group-@group.Id">
+            <h5>@group.Date.ToString("yyyy/MM/dd")</h5>
+            <div class="photo-selection-grid">
+                @foreach (var photo in group.Photos)
+                {
+                    <label class="photo-item">
+                        <input type="checkbox" name="selectedPhotoIds" value="@photo.Id" />
+                        <img src="@photo.ThumbnailUrl" title="@photo.Title"
+                             onclick="openPreview('@photo.OriginalUrl', '@photo.Title')" />
+                    </label>
+                }
+            </div>
         </div>
-        <button type="submit" class="cool-btn album-create-btn">
-            写真を追加
-        </button>
-    </form>
+    }
+
+    @foreach (var group in Model)
+    {
+        <div class="photo-date-group" id="group-@group.Id">
+            <h5>@group.Date.ToString("yyyy/MM/dd")</h5>
+            <div class="photo-selection-grid">
+                @foreach (var photo in group.Photos)
+                {
+                    <label class="photo-item">
+                        <input type="checkbox" name="selectedPhotoIds" value="@photo.Id" />
+                        <img src="@photo.ThumbnailUrl" title="@photo.Title" 
+                             onclick="openPreview('@photo.OriginalUrl', '@photo.Title')" />
+                    </label>
+                }
+            </div>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary mt-3">アルバムを作成</button>
+</form>
+
+<!-- 大图预览弹窗 -->
+<div id="previewModal" class="preview-modal" onclick="closePreview()">
+    <span class="close-btn" onclick="closePreview()">&times;</span>
+    <img class="preview-img" id="previewImg" />
+    <div id="previewTitle" class="preview-title"></div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+

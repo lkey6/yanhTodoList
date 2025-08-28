@@ -40,5 +40,18 @@ namespace AzurePJ.Controllers
             return View(groupedPhotos);
         }
 
+        public IActionResult Upload() => View();
+
+        [HttpGet]
+        public async Task<IActionResult> SelectPhotos(int albumId)
+        {
+            var photos = await _context.Photos
+                .OrderByDescending(p => p.UploadedAt)
+                .ToListAsync();
+
+            ViewBag.AlbumId = albumId;
+            return View(photos);
+        }
+
     }
 }

@@ -1,39 +1,42 @@
-﻿@model AzurePJ.Models.PhotoUploadViewModel
+﻿@model IEnumerable<AzurePJ.Models.Photo>
 @{
-    ViewData["Title"] = "写真をアップロード";
+    var album = ViewBag.Album as AzurePJ.Models.Album;
 }
 
-<div class="container">
-    <h2>アルバム：@ViewBag.AlbumName</h2>
-    <p style="text-align:center;">ここにあなたの大切な思い出の写真をアップロードしましょう♡</p>
-
-    <form asp-action="UploadPhoto" method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="AlbumId"/>
-        <div class="mb-3">
-            <label asp-for="Title" class="form-label">タイトル（任意）</label>
-            <input asp-for="Title" class="form-control" placeholder="例：海での思い出" />
-            <span asp-validation-for="Title" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label">説明（任意）</label>
-            <textarea asp-for="Description" class="form-control" placeholder="思い出のコメント"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-
-        <div class="mb-3">
-            <label asp-for="PhotoFile" class="form-label">写真を選択</label>
-            <input asp-for="PhotoFile" type="file" class="form-control" />
-            <span asp-validation-for="PhotoFile" class="text-danger"></span>
-        </div>
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-pink">アップロード♡</button>
-            <a asp-action="Index" class="btn btn-secondary">戻る</a>
-        </div>
-    </form>
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2>@album.Name</h2>
+    <a href="/Albums" class="btn btn-secondary">戻る</a>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<form asp-action="UploadPhotos" asp-route-id="@album.Id" method="post" enctype="multipart/form-data">
+    <input type="file" name="files" multiple class="form-control mb-2" />
+    <button type="submit" class="btn btn-primary">アップロード</button>
+</form>
+
+<hr />
+
+<div class="photo-grid">
+    @foreach (var photo in Model)
+    {
+        <div class="photo-item">
+            <img src="@photo.ThumbnailPath" alt="@photo.ThumbnailPath" />
+        </div>
+    }
+</div>
+
+<style>
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
 }
+.photo-item img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform .2s;
+}
+.photo-item img:hover {
+    transform: scale(1.05);
+}
+</style>

@@ -1,64 +1,50 @@
-﻿html {
-    font-size: 14px;
-    position: relative;
-    min-height: 100%;
+﻿:root {
+    --sidebar-width: 220px;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-body {
+html, body {
     background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
+/* ===== Grid 分层布局 ===== */
+.page-wrapper-grid {
+    display: grid;
+    grid-template-rows: 1fr auto; /* 上层 RenderBody，自适应；下层 footer 固定 */
     min-height: 100vh;
 }
 
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.main-container {
+.main-container-grid {
     display: flex;
-    min-height: 100vh;
+    min-height: 0; /* 防止内容溢出 */
 }
 
+/* ===== Sidebar ===== */
 .sidebar {
-    width: 220px;
+    flex: 0 0 var(--sidebar-width);
+    width: var(--sidebar-width);
     background: #f8f9fa;
     border-right: 1px solid #ddd;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
     transition: left 0.3s ease;
 }
 
-    .sidebar.collapsed {
-        width: 60px;
-    }
-
 .sidebar-header {
     padding: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.sidebar.collapsed .nav-link span {
-    display: none;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
 .sidebar .nav-link {
-    color: #333;
     margin: 5px 0;
     padding: 8px 15px;
     border-radius: 4px;
+    color: #333;
 }
 
     .sidebar .nav-link:hover {
@@ -67,56 +53,56 @@ body {
     }
 
 .sidebar .btn {
-    width: 100%;
+    margin-top: auto;
 }
 
-#sidebarBackdrop {
-    display: none;
-}
-
+/* ===== Content ===== */
 .content {
-    flex-grow: 1;
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 20px;
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.6);
 }
 
-    .content.expanded {
-        margin-left: 60px;
-    }
-
+/* ===== Footer ===== */
 footer.footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 10px 0;
-    background-color: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background-color: rgba(255,255,255,0.85);
     text-align: center;
+    padding: 10px 0;
 }
 
+/* ===== Center wrapper for unauthenticated layout ===== */
 .center-wrapper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    z-index: 1000;
 }
 
+/* ===== Form Box / Buttons / Animations ===== */
 .form-box {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255,255,255,0.95);
     border-radius: 20px;
     padding: 40px 30px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
     width: 360px;
-    animation: fadeIn 0.8s ease-in-out;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
+    animation: fadeIn 0.8s ease-in-out;
 }
+
+    .form-box::before {
+        content: "❤";
+        font-size: 100px;
+        color: rgba(255,182,193,0.2);
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        transform: rotate(15deg);
+    }
 
 .form-title {
     font-size: 28px;
@@ -145,7 +131,7 @@ footer.footer {
 
     .form-input:focus {
         border-color: #ff6f91;
-        box-shadow: 0 0 8px rgba(255, 105, 180, 0.4);
+        box-shadow: 0 0 8px rgba(255,105,180,0.4);
     }
 
 .text-danger {
@@ -158,18 +144,8 @@ footer.footer {
     text-align: left;
 }
 
-.form-box::before {
-    content: "❤";
-    font-size: 100px;
-    color: rgba(255, 182, 193, 0.2);
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    transform: rotate(15deg);
-}
-
 .cool-btn {
-    background: linear-gradient(90deg, #ff6f91, #ff9671);
+    background: linear-gradient(90deg,#ff6f91,#ff9671);
     border: none;
     padding: 10px 18px;
     font-size: 14px;
@@ -193,7 +169,7 @@ footer.footer {
         left: -50%;
         width: 200%;
         height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        background: radial-gradient(circle,rgba(255,255,255,0.3) 0%,transparent 70%);
         transform: scale(0);
         transition: transform 0.5s ease;
         border-radius: 50%;
@@ -202,7 +178,7 @@ footer.footer {
 
     .cool-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+        box-shadow: 0 5px 15px rgba(255,105,180,0.4);
     }
 
         .cool-btn:hover::before {
@@ -246,76 +222,85 @@ footer.footer {
     pointer-events: none;
 }
 
-@media (max-width: 768px) {
+/* ===== Photo & Album Grids ===== */
+.photo-date-group {
+    margin-bottom: 20px;
+}
 
-    .sidebar {
-        position: fixed;
-        left: -220px;
-        top: 0;
-        height: 100%;
-        transition: left 0.3s ease;
-        z-index: 1000;
+.photo-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(120px,1fr));
+    gap: 10px;
+}
+
+.photo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+    .photo-item img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.2s;
     }
 
-        .sidebar.active {
-            left: 0;
+        .photo-item img:hover {
+            transform: scale(1.05);
         }
 
-        .sidebar.show {
-            left: 0;
-        }
-
-    .sidebar-header {
-        padding: 8px;
-        font-size: 0.9rem;
+    .photo-item input[type="checkbox"] {
+        margin-top: 5px;
     }
 
-    .sidebar .nav-link {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-    }
+.preview-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
 
-    .content {
-        margin-left: 0;
-    }
+.preview-img {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 8px;
+}
 
-    #sidebarBackdrop.active {
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 900;
-    }
+.preview-title {
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
 
-    .cool-btn,
-    .album-create-btn {
-        width: 100%;
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .album-title {
-        font-size: 1.4rem;
-    }
-
-    .thumbnail-img-container {
-        height: 100px;
-    }
-
-    .thumbnail-placeholder {
-        font-size: 0.9rem;
-    }
-
-    .thumbnail-img-container {
-        height: 100px;
-    }
-
-    .thumbnail-placeholder {
-        font-size: 0.9rem;
-    }
+#localPreview img.preview-img-thumb {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 5px;
 }
 
 .album-title {
@@ -334,7 +319,7 @@ footer.footer {
 
 .album-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
     gap: 10px;
     list-style: none;
     padding: 0;
@@ -374,14 +359,91 @@ footer.footer {
     width: 100%;
 }
 
-@media (max-width: 480px) {
+/* ===== Media Queries ===== */
+@media (max-width:768px) {
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        z-index: 1000;
+        background: #f8f9fa;
+    }
 
+        .sidebar.active {
+            left: 0;
+        }
+
+    #sidebarBackdrop {
+        display: none;
+    }
+
+        #sidebarBackdrop.active {
+            display: block;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 900;
+        }
+
+    .content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    button.btn, .cool-btn, .album-create-btn {
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .album-title {
+        font-size: 1.4rem;
+    }
+
+    .thumbnail-img-container {
+        height: 100px;
+    }
+
+    .thumbnail-placeholder {
+        font-size: 0.9rem;
+    }
+
+    .photo-selection-grid {
+        grid-template-columns: repeat(auto-fill,minmax(90px,1fr));
+        gap: 8px;
+    }
+
+    .photo-item img {
+        height: 80px;
+    }
+
+    .close-btn {
+        font-size: 30px;
+        right: 20px;
+    }
+
+    .preview-img {
+        max-width: 95%;
+        max-height: 70%;
+    }
+
+    #localPreview img.preview-img-thumb {
+        height: 80px;
+    }
+
+    .album-header h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width:480px) {
     .album-title {
         font-size: 1.2rem;
     }
 
-    .cool-btn,
-    .album-create-btn {
+    .cool-btn, .album-create-btn {
         font-size: 0.75rem;
         padding: 5px 10px;
     }
