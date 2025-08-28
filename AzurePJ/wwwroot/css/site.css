@@ -361,31 +361,37 @@ footer.footer {
 
 /* ===== Media Queries ===== */
 @media (max-width:768px) {
+
     .sidebar {
         position: fixed;
-        left: -240px;
+        left: -250px; /* 隐藏在左侧 */
         top: 0;
         bottom: 0;
-        height: 100%;
-        z-index: 1000;
+        width: var(--sidebar-width);
+        z-index: 1050; /* sidebar在上层 */
         background: #f8f9fa;
+        transition: left 0.3s ease;
     }
 
         .sidebar.active {
-            left: 0;
+            left: 0; /* 显示 */
         }
 
     #sidebarBackdrop {
         display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040; /* 遮罩在sidebar下面 */
     }
 
         #sidebarBackdrop.active {
             display: block;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 900;
         }
+    #sidebarToggle {
+        z-index: 1100; /* 按钮在最上层 */
+        position: relative;
+    }
 
     .content {
         margin-left: 0;
