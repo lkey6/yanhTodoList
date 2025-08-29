@@ -3,6 +3,7 @@
 <div class="album-header d-flex align-items-center justify-content-between mb-3">
     <h2 class="album-title m-0">♡アルバム♡</h2>
     <button class="cool-btn album-create-btn" onclick="location.href='/Albums/Create'">アルバムを作成</button>
+
 </div>
 
 <ul class="album-list">
@@ -22,38 +23,15 @@
                 </div>
                 <div class="album-name">@album.Name</div>
             </a>
+
+            <form asp-action="Delete" method="post" class="album-delete-form">
+                <input type="hidden" name="id" value="@album.Id" />
+                <button type="submit" class="album-delete-btn"
+                        title="アルバムを削除"
+                        onclick="return confirm('本当に削除しますか？');">
+                    🗑️
+                </button>
+            </form>
         </li>
     }
 </ul>
-
-<style>
-.album-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-    list-style: none;
-    padding: 0;
-}
-.album-item {
-    text-align: center;
-}
-.thumbnail-img-container img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.thumbnail-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 120px;
-    background-color: #eee;
-    border-radius: 8px;
-    font-weight: bold;
-}
-.album-name {
-    margin-top: 5px;
-    font-weight: 500;
-}
-</style>

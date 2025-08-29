@@ -319,45 +319,141 @@ footer.footer {
 
 .album-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* ===== 相册卡片（含悬浮删除）===== */
 .album-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 高度 = 宽度，保持正方形 */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    background: #f8f8f8;
+    transition: transform 0.3s ease;
 }
+
+    .album-item:hover {
+        transform: scale(1.03);
+    }
 
 .thumbnail-img-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
-    height: 120px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
 }
 
-    .thumbnail-img-container:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    .thumbnail-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 保证填满格子并裁剪 */
+        display: block;
     }
 
 .thumbnail-placeholder {
-    font-size: 1rem;
-    text-align: center;
-    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    background-color: #eee;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
-.thumbnail-link {
-    display: block;
+.album-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    backdrop-filter: blur(2px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+
+.album-item:hover .album-name {
+    color: #d6336c;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* 悬浮删除表单（默认隐藏，hover/聚焦显示） */
+.album-delete-form {
+    position: absolute;
+    top: 16px; /* 与卡片 padding 对齐，保证在缩略图区域内 */
+    right: 16px;
+    margin: 0;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none; /* 隐藏时不拦截点击 */
+    transition: opacity 0.18s ease;
+}
+
+/* 基础：hover 在整张卡片上时显示（兼容无 :has 的浏览器） */
+.album-item:hover .album-delete-form,
+.album-item:focus-within .album-delete-form {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 进阶：仅当真正 hover 到缩略图时才显示（支持 :has 的现代浏览器） */
+@supports selector(.album-item:has(.thumbnail-img-container:hover)) {
+    .album-item:not(:has(.thumbnail-img-container:hover)):not(:focus-within) .album-delete-form {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .album-item:has(.thumbnail-img-container:hover) .album-delete-form {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* 移动端（无 hover 的粗指针设备）：始终显示，避免点不到 */
+@media (hover: none) and (pointer: coarse) {
+    .album-delete-form {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.album-delete-btn {
+    background: rgba(255, 255, 255, 0.78);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #ff6f91;
+    border-radius: 50%;
+    padding: 6px;
+    line-height: 1;
+    transition: transform 0.16s ease, color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    backdrop-filter: blur(4px);
+}
+
+    .album-delete-btn:hover {
+        color: #d6336c;
+        transform: scale(1.18);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+    }
 
 /* ===== Media Queries ===== */
 @media (max-width:768px) {
@@ -388,6 +484,7 @@ footer.footer {
         #sidebarBackdrop.active {
             display: block;
         }
+
     #sidebarToggle {
         z-index: 1100; /* 按钮在最上层 */
         position: relative;
@@ -404,12 +501,28 @@ footer.footer {
         padding: 6px 12px;
     }
 
-    .album-title {
-        font-size: 1.4rem;
+    .album-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+    }
+
+    .album-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
 
     .thumbnail-img-container {
         height: 100px;
+    }
+
+    .album-name {
+        font-size: 0.8rem;
+        padding: 4px 6px;
+    }
+
+    .album-delete-btn {
+        font-size: 0.9rem;
+        padding: 4px;
     }
 
     .thumbnail-placeholder {

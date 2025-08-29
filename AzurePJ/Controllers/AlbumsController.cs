@@ -180,6 +180,47 @@ namespace AzurePJ.Controllers
             return View(groupedPhotos);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var album = await _context.Albums
+                .Include(a => a.Photos)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (album == null)
+                return NotFound();
+
+            // 删除 Blob 里的文件
+            foreach (var photo in album.Photos)
+            {
+                if (!string.IsNullOrEmpty(photo.OriginalPath))
+                    await _blobService.DeleteAsync("mengmeng", photo.OriginalPath);
+
+                if (!string.IsNullOrEmpty(photo.ThumbnailPath))
+                    await _blobService.DeleteAsync("thumbnails", photo.ThumbnailPath);
+            }
+
+            // 删除数据库里的照片
+            _context.Photos.RemoveRange(album.Photos);
+
+            // 删除相册
+            _context.Albums.Remove(album);
+
+            //AlbumPhotosを削除
+
+            var albumPhoto = await _context.AlbumPhotos.FirstOrDefaultAsync(ap => ap.AlbumId == album.Id);
+
+            if (albumPhoto != null)
+            {
+                _context.AlbumPhotos.Remove(albumPhoto);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

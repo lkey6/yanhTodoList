@@ -147,4 +147,18 @@ public class BlobService
         return await UploadAsync(containerName, blobName, ms, "image/jpeg");
     }
 
+    /// <summary>
+    /// 从指定容器删除一个 Blob
+    /// </summary>
+    public async Task DeleteAsync(string containerName, string blobName)
+    {
+        if (string.IsNullOrWhiteSpace(blobName))
+            return;
+
+        var containerClient = GetContainerClient(containerName);
+        var blobClient = containerClient.GetBlobClient(blobName);
+
+        await blobClient.DeleteIfExistsAsync(DeleteSnapshotsOption.IncludeSnapshots);
+    }
+
 }
